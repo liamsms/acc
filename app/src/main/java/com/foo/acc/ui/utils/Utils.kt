@@ -35,11 +35,15 @@ fun initUserRepository(api: UserApi, dao: UserDao): UserRepository {
 }
 
 fun formatDate(date: String?): String {
-    if (date == null) return "Unknown"
-    val oldFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
-    val newFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
-    val parseDate = oldFormat.parse(date) ?: return "Date error"
-    return newFormat.format(parseDate)
+    try {
+        if (date == null) return "Unknown"
+        val oldFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+        val newFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
+        val parseDate = oldFormat.parse(date) ?: return "Date error"
+        return newFormat.format(parseDate)
+    } catch (error: Exception) {
+        return "Date error"
+    }
 }
 
 fun getLifeStatus(isAlive: Boolean): String {
